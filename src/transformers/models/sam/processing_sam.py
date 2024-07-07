@@ -97,6 +97,9 @@ class SamProcessor(ProcessorMixin):
             return_tensors=return_tensors,
         )
 
+        if 'labels' in encoding_image_processor:
+            encoding_image_processor['input_masks'] = encoding_image_processor.pop('labels').float()
+
         return encoding_image_processor
 
     def _normalize_and_convert(
